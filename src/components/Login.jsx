@@ -1,18 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../redux/slices/authSlice";
-import axios from "axios";
 
 const Login = () => {
   const [data, setData] = useState(null);
   const [mobile, setMobile] = useState("");
   const [otp, setOtp] = useState("");
   const [isOtpSent, setIsOtpSent] = useState(false);
-  const [baseUrl, setBaseUrl] = useState("/");
   const [apiPath, setApiPath] = useState("validateotp");
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,7 +57,7 @@ const Login = () => {
         const otp = otpParse.otp;
 
         if (otp) {
-          setOtp(otp);
+          setTimeout(() => setOtp(otp), 3500);
           navigate(`/${apiPath}`);
         } else {
           console.error("OTP not found in response");
@@ -77,7 +72,8 @@ const Login = () => {
     if (!mobile || !otp) {
       return;
     }
-    navigate("/home");
+    if (localStorage.getItem("currentUser")) navigate("/home");
+    else navigate("/admin");
   };
 
   //console.log(isOtpSent);
