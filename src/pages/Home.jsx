@@ -20,6 +20,8 @@ const Home = () => {
   const [searchToDate, setSearchToDate] = useState("");
   const [isSearchPerformed, setIsSearchPerformed] = useState(false);
 
+  const url = window.location.origin;
+
   useEffect(() => {
     if (category === "Personal") {
       setSubCategory(["John", "Tom", "Emily", "Others"]);
@@ -34,7 +36,7 @@ const Home = () => {
 
   const fetchUploadedFiles = async () => {
     try {
-      const response = await fetch("http://localhost:5000/saveDocumentEntry");
+      const response = await fetch(`${url}/saveDocumentEntry`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -103,7 +105,7 @@ const Home = () => {
         })
       );
 
-      const response = await fetch("http://localhost:5000/saveDocumentEntry", {
+      const response = await fetch(`${url}/saveDocumentEntry`, {
         method: "POST",
         body: formData,
       });
@@ -186,7 +188,7 @@ const Home = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-4 bg-white shadow-lg rounded-lg">
+    <div className="max-w-6xl mx-auto p-4 bg-white shadow-lg rounded-lg">
       <h2 className="text-xl font-bold mb-4">Upload File</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -277,58 +279,64 @@ const Home = () => {
         </button>
       </form>
       <h3 className="text-lg font-semibold mt-6">Uploaded Files</h3>
-      <ul className="mt-2">
-        {filteredFiles.map((file, index) => (
-          <li key={index} className="border p-2 mt-1">
-            <strong>File:</strong> {file.filename} <br />
-            <strong>Category:</strong> {file.major_head} <br />
-            <strong>Department:</strong> {file.minor_head} <br />
-            <strong>Date:</strong> {file.document_date} <br />
-            <strong>Tags:</strong> {file.tags.map((t) => t.tag_name).join(", ")}{" "}
-            <br />
-            {file.fileType &&
-            (file.fileType.endsWith("pdf") ||
-              file.fileType.endsWith("jpg") ||
-              file.fileType.endsWith("jpeg") ||
-              file.fileType.endsWith("png")) ? (
-              file.fileType.includes("pdf") ? (
-                <object
-                  data={file.fileUrl}
-                  type="application/pdf"
-                  width="100%"
-                  height="200px"
-                >
-                  <p>
-                    PDF preview is not available.{" "}
-                    <a href={file.fileUrl}>Download</a>
-                  </p>
-                </object>
+      {filteredFiles.length > 0 ? (
+        <ul>
+          {filteredFiles.map((file, index) => (
+            <li key={index} className="border p-2 mt-1">
+              <strong>File:</strong> {file.filename} <br />
+              <strong>Category:</strong> {file.major_head} <br />
+              <strong>Department:</strong> {file.minor_head} <br />
+              <strong>Date:</strong> {file.document_date} <br />
+              <strong>Tags:</strong>{" "}
+              {file.tags.map((t) => t.tag_name).join(", ")} <br />
+              {file.fileType &&
+              (file.fileType.endsWith("pdf") ||
+                file.fileType.endsWith("jpg") ||
+                file.fileType.endsWith("jpeg") ||
+                file.fileType.endsWith("png")) ? (
+                file.fileType.includes("pdf") ? (
+                  <object
+                    data={file.fileUrl}
+                    type="application/pdf"
+                    width="100%"
+                    height="200px"
+                  >
+                    <p>
+                      PDF preview is not available.{" "}
+                      <a href={file.fileUrl}>Download</a>
+                    </p>
+                  </object>
+                ) : (
+                  <img
+                    src={file.fileUrl}
+                    alt="Preview"
+                    className="w-full h-auto mt-2"
+                  />
+                )
               ) : (
-                <img
-                  src={file.fileUrl}
-                  alt="Preview"
-                  className="w-full h-auto mt-2"
-                />
-              )
-            ) : (
-              <span className="text-gray-500">Preview not available</span>
-            )}
-            <button
-              onClick={() => handleDownload(file.fileUrl, file.filename)}
-              className="ml-2 bg-gray-500 text-white px-2 py-1 rounded"
-            >
-              Download
-            </button>
-          </li>
-        ))}
-      </ul>
-      {isSearchPerformed && <p className="mt-2">No files found.</p>}
-      <button
-        onClick={handleDownloadAll}
-        className="bg-red-500 text-white px-4 py-2 rounded w-full mt-4"
-      >
-        Download All as ZIP
-      </button>
+                <span className="text-gray-500">Preview not available</span>
+              )}
+              <button
+                onClick={() => handleDownload(file.fileUrl, file.filename)}
+                className="ml-2 bg-gray-500 text-white px-2 py-1 rounded"
+              >
+                Download
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-2 text-gray-500">No files uploaded.</p>
+      )}
+
+      {filteredFiles.length > 0 && (
+        <button
+          onClick={handleDownloadAll}
+          className="bg-red-500 text-white px-4 py-2 rounded w-full mt-4"
+        >
+          Download All as ZIP
+        </button>
+      )}
       {/* File Search Form */}
       <h3 className="text-lg font-semibold mt-6">Search Files</h3>
       <div className="space-y-2">
@@ -384,7 +392,7 @@ const Home = () => {
           ))}
         </ul>
       ) : (
-        <p className="mt-2">No files found.</p>
+        <p className="mt-2 text-gray-500">No files found.</p>
       )}
     </div>
   );
