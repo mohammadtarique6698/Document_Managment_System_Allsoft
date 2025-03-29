@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useSnackbar } from "notistack";
 import JSZip from "jszip";
@@ -20,7 +21,7 @@ const Home = () => {
   const [searchToDate, setSearchToDate] = useState("");
   const [isSearchPerformed, setIsSearchPerformed] = useState(false);
 
-  const url = window.location.origin;
+  //const url = window.location.origin;
 
   useEffect(() => {
     if (category === "Personal") {
@@ -36,7 +37,7 @@ const Home = () => {
 
   const fetchUploadedFiles = async () => {
     try {
-      const response = await fetch(`${url}/saveDocumentEntry`);
+      const response = await fetch(`http://localhost:5000/saveDocumentEntry`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -48,11 +49,11 @@ const Home = () => {
 
       setUploadedFiles(data.files);
     } catch (error) {
-      console.error("Error fetching uploaded files:", error);
-      enqueueSnackbar("Failed to fetch uploaded files. Please try again.", {
-        variant: "error",
-      });
       setUploadedFiles([]); // Set to empty array to prevent crashes
+      // console.error("Error fetching uploaded files:", error);
+      // enqueueSnackbar("Failed to fetch uploaded files. Please try again.", {
+      //   variant: "error",
+      // });
     }
   };
 
@@ -105,7 +106,7 @@ const Home = () => {
         })
       );
 
-      const response = await fetch(`${url}/saveDocumentEntry`, {
+      const response = await fetch(`http://localhost:5000/saveDocumentEntry`, {
         method: "POST",
         body: formData,
       });

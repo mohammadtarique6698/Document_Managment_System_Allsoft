@@ -21,7 +21,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-blue-500 text-white p-4 flex justify-between items-center">
-      <h1 className="text-lg font-bold">MyApp</h1>
+      <h1 className="text-lg font-bold">Database Managment System</h1>
       {user && (
         <div className="relative">
           {/* Initials Button */}
