@@ -79,30 +79,32 @@ const Login = () => {
   //console.log(isOtpSent);
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md w-80">
-      <h2 className="text-xl font-semibold text-center mb-4">Login</h2>
-      <input
-        type="text"
-        placeholder="Enter Mobile Number"
-        className="border p-2 w-full rounded mb-2"
-        value={mobile}
-        onChange={(e) => setMobile(e.target.value)}
-      />
-      {isOtpSent && (
+    <div className="flex items-center justify-center min-h-screen min-w-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black">
+      <div className="bg-white bg-opacity-10 backdrop-blur-lg shadow-2xl rounded-lg p-8 w-96 border border-white/20 text-center">
+        <h2 className="text-3xl font-semibold text-center mb-6">Login</h2>
         <input
           type="text"
-          placeholder="Enter OTP"
+          placeholder="Enter Mobile Number"
           className="border p-2 w-full rounded mb-2"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
+          value={mobile}
+          onChange={(e) => setMobile(e.target.value)}
         />
-      )}
-      <button
-        onClick={!isOtpSent ? sendOtpRequest : handleLogin}
-        className="bg-blue-500 text-white p-2 w-full rounded"
-      >
-        {isOtpSent ? "Login" : "Send OTP"}
-      </button>
+        {isOtpSent && (
+          <input
+            type="text"
+            placeholder="Enter OTP"
+            className="border p-2 w-full rounded mb-2"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+          />
+        )}
+        <button
+          onClick={!isOtpSent ? sendOtpRequest : handleLogin}
+          className="bg-blue-500 text-white p-2 w-full rounded"
+        >
+          {isOtpSent ? "Login" : "Send OTP"}
+        </button>
+      </div>
     </div>
   );
 };
