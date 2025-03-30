@@ -1,12 +1,80 @@
-# React + Vite
+# Project Name: Admin & Login Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introduction
+This project is a full-stack **Admin & Login Management System** built using **React (Vite)** for the frontend and **Express.js** for the backend. It features user authentication via OTP-based login, admin user creation, and local storage management functionality. The frontend has a modern, glassmorphic UI, while the backend handles authentication and validation efficiently.
 
-Currently, two official plugins are available:
+## Features
+- **Login with OTP Verification**
+- **Admin Panel to Create Users**
+- **Local Storage Management functionality**
+- **Modern, Responsive UI with Material Design**
+- **Glassmorphism & Smooth Transitions**
+- **REST API for Authentication & User Management**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Tech Stack
+### Frontend
+- **Vite (React.js)** - Fast build tool for modern frontend development
+- **React Router** - For navigation and routing
+- **Tailwind CSS** - For styling and UI components
+- **React Icons** - For adding icons to the UI
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Backend
+- **Node.js & Express.js** - For building the REST API
+- **Cors** - For handling cross-origin requests
+- **Nodemon** - For automatic server restarts during development
+
+---
+
+## Installation & Setup
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/your-username/admin-login-system.git
+cd admin-login-system
+```
+
+### 2️⃣ Frontend Setup
+```bash
+cd frontend  # Navigate to the frontend directory
+npm install  # Install dependencies
+npm run dev  # Start the frontend (Vite)
+```
+
+### 3️⃣ Backend Setup
+```bash
+cd backend  # Navigate to the backend directory
+npm install  # Install dependencies
+npm start  # Start the backend on port 5000
+```
+
+---
+
+## Running the Project
+1. Start the backend server: `npm start` (Runs on **http://localhost:5000**)
+2. Start the frontend: `npm run dev` (Runs on **http://localhost:5173** by default)
+3. Open the browser and navigate to the frontend URL.
+4. Login using OTP verification or navigate to the admin panel to create a user (OTP fetching will be automatically done).
+
+---
+
+## API Endpoints
+- `POST /send-otp` - Sends OTP to the user
+- `POST /validateotp` - Validates the entered OTP
+- New User - UserName will be saved in Local Storage
+
+---
+
+## License
+This project is licensed under the **MIT License**.
+
+---
+
+## Author
+Developed by **Mohammad Tarique**
+
+📧 Contact: [mohammadtarique661998@gmail.com]  
+🔗 GitHub: (https://github.com/mohammadtarique6698)
+
+
