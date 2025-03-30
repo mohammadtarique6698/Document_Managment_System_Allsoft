@@ -60,7 +60,7 @@ npm start  # Start the backend on port 5000
 ---
 
 ## API Endpoints
-- `POST /send-otp` - Sends OTP to the user
+- `POST /generateotp` - Sends OTP to the user
 - `POST /validateotp` - Validates the entered OTP
 - New User - UserName will be saved in Local Storage
 
